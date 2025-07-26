@@ -1,4 +1,5 @@
-﻿using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
+﻿using Aquiles.Application.Servicos;
+using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
 using Aquiles.Application.UseCases.Clientes.GetAll;
 using Aquiles.Application.UseCases.Clientes.Update;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;
 
+[ServiceFilter(typeof(AquilesAuthorize))]
 public class ClientesController : BaseController
 {
     [HttpPost]

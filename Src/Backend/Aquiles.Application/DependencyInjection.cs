@@ -15,6 +15,7 @@ public static class DependencyInjection
     {
         AddRepositories(services);
         AdicionarChaveAdicionalToken(services, configurationManager);
+        AdicionarTokenJWT(services, configurationManager);
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -46,5 +47,17 @@ public static class DependencyInjection
     private static void AdicionarChaveAdicionalToken(IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddScoped(option => new PasswordEncrypt(configurationManager.GetSection("Configuracoes:Senha:ChaveAdicionalSenha").Value));
+    }
+
+    private static void AdicionarTokenJWT(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped(option =>
+            new TokenController(
+                configuration.GetSection("Configuracoes:Jwt:TokenKey").Value,
+                int.Parse(configuration.GetSection("Configuracoes:Jwt:LifeTimeMinutes").Value)));
+
+        services.AddScoped(option => new AquilesAuthorize(new TokenController(
+                configuration.GetSection("Configuracoes:Jwt:TokenKey").Value,
+                int.Parse(configuration.GetSection("Configuracoes:Jwt:LifeTimeMinutes").Value))));
     }
 }

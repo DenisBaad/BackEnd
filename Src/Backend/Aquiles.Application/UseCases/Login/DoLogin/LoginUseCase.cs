@@ -1,5 +1,6 @@
 ﻿using Aquiles.Application.Servicos;
 using Aquiles.Communication.Requests.Login;
+using Aquiles.Communication.Responses.Login;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Exception.AquilesException;
 
@@ -8,16 +9,19 @@ public class LoginUseCase : ILoginUseCase
 {
     private readonly IUsuarioReadOnlyRepository _usuarioReadOnlyRepository;
     private readonly PasswordEncrypt _passwordEncript;
+    private readonly TokenController _tokenController;
 
     public LoginUseCase(
         IUsuarioReadOnlyRepository usuarioReadOnlyRepository, 
-        PasswordEncrypt passwordEncript)
+        PasswordEncrypt passwordEncript,
+        TokenController tokenController)
     {
         _usuarioReadOnlyRepository = usuarioReadOnlyRepository;
         _passwordEncript = passwordEncript;
+        _tokenController = tokenController;
     }
 
-    public async Task Execute(RequestLoginJson request)
+    public async Task<ResponseLoginJson> Execute(RequestLoginJson request)
     {
         try
         {
@@ -28,6 +32,12 @@ public class LoginUseCase : ILoginUseCase
             {
                 throw new System.Exception("Login inválido.");
             }
+
+            return new ResponseLoginJson()
+            {
+                Nome = usuario.Nome,
+                Token = _tokenController.Create(usuario.Email, usuario.Id)
+            };
         }
         catch (System.Exception ex)
         {
