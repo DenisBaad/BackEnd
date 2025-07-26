@@ -4,19 +4,28 @@ using System.Text;
 namespace Aquiles.Application.Servicos;
 public class PasswordEncrypt
 {
-    public string HashPassword(string password)
+    private readonly string _chaveAdicional;
+    public PasswordEncrypt(string chaveAdicional)
     {
-        using (var hmac = new HMACSHA256())
-        {
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-            var hashedBytes = hmac.ComputeHash(passwordBytes);
-            return Convert.ToBase64String(hashedBytes);
-        }
+        _chaveAdicional = chaveAdicional;
     }
 
-    public bool VerifyPassword(string password, string hashedPassword)
+    public string Encript(string senha)
     {
-        var computedHash = HashPassword(password);
-        return hashedPassword == computedHash;
+        var senhaComChaveAdicional = $"{senha}{_chaveAdicional}";
+        var bytes = Encoding.UTF8.GetBytes(senhaComChaveAdicional);
+        byte[] hashBytes = SHA512.HashData(bytes);
+        return StringBytes(hashBytes);
+    }
+
+    private static string StringBytes(byte[] bytes)
+    {
+        var sb = new StringBuilder();
+        foreach (byte b in bytes)
+        {
+            var hex = b.ToString("x2");
+            sb.Append(hex);
+        }
+        return sb.ToString();
     }
 }

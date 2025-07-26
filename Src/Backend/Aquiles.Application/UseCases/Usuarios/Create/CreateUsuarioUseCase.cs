@@ -15,24 +15,27 @@ public class CreateUsuarioUseCase : ICreateUsuarioUseCase
     private readonly IUsuarioReadOnlyRepository _usuarioReadOnlyRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly PasswordEncrypt _passwordEncript;
 
     public CreateUsuarioUseCase(
         IUsuarioWriteOnlyRepository usuarioWriteOnlyRepository,
         IUsuarioReadOnlyRepository usuarioReadOnlyRepository,
         IMapper mapper,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        PasswordEncrypt passwordEncript)
     {
         _usuarioWriteOnlyRepository = usuarioWriteOnlyRepository;
         _usuarioReadOnlyRepository = usuarioReadOnlyRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _passwordEncript = passwordEncript;
     }
 
     public async Task<ResponseUsuariosJson> Execute(RequestCreateUsuariosJson request)
     {
         await Validate(request);
         var usuario = _mapper.Map<Usuario>(request);
-        usuario.Senha = new PasswordEncrypt().HashPassword(request.Senha);
+        usuario.Senha = _passwordEncript.Encript(usuario.Senha);
         usuario.Id = Guid.NewGuid();
         await _usuarioWriteOnlyRepository.AddAsync(usuario);
         await _unitOfWork.CommitAsync();
