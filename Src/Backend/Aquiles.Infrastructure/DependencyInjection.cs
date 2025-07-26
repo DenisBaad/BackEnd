@@ -1,0 +1,64 @@
+﻿using Aquiles.Domain.Repositories;
+using Aquiles.Domain.Repositories.Clientes;
+using Aquiles.Domain.Repositories.Usuarios;
+using Aquiles.Infrastructure.Context;
+using Aquiles.Infrastructure.Repositories;
+using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+
+namespace Aquiles.Infrastructure;
+public static class DependencyInjection
+{
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        AddRepositories(services);
+        AddMySqlContext(services, configuration);
+        AddFluentMigrator_MySql(services, configuration);
+    }
+    
+    public static void AddRepositories(IServiceCollection services)
+    {
+        AddUnitOfWorkRepository(services);
+        AddUsuariosRepository(services);
+        AddClientesRepository(services);
+    }
+
+    private static void AddUnitOfWorkRepository(IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    public static void AddUsuariosRepository(IServiceCollection services) 
+    {
+        services
+            .AddScoped<IUsuarioWriteOnlyRepository, UsuarioRepository>()
+            .AddScoped<IUsuarioReadOnlyRepository, UsuarioRepository>();
+    }
+
+    public static void AddClientesRepository(IServiceCollection services)
+    {
+        services
+            .AddScoped<IClienteWriteOnlyRepository, ClienteRepository>()
+            .AddScoped<IClienteReadOnlyRepository, ClienteRepository>()
+            .AddScoped<IClienteUpdateOnlyRepository, ClienteRepository>();
+    }
+
+    public static void AddMySqlContext(IServiceCollection services, IConfiguration configuration)
+    {
+        var versaoServidor = new MySqlServerVersion(new Version(5, 6));
+
+        var connectionString = configuration.GetConnectionString("Connection");
+
+        services.AddDbContext<AquilesContext>(context => context.UseMySql(connectionString, versaoServidor));
+    }
+
+    private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Connection");
+
+        services.AddFluentMigratorCore().ConfigureRunner(options => options.AddMySql5().WithGlobalConnectionString(connectionString).ScanIn(Assembly.Load("Aquiles.Infrastructure")).For.All());
+    }
+}

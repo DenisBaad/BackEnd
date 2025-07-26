@@ -1,0 +1,63 @@
+﻿using Aquiles.Application.Servicos;
+using Aquiles.Communication.Requests.Usuarios;
+using Aquiles.Communication.Responses.Usuarios;
+using Aquiles.Domain.Entities;
+using Aquiles.Domain.Repositories;
+using Aquiles.Domain.Repositories.Usuarios;
+using Aquiles.Exception.AquilesException;
+using AutoMapper;
+using FluentValidation;
+
+namespace Aquiles.Application.UseCases.Usuarios.Create;
+public class CreateUsuarioUseCase : ICreateUsuarioUseCase
+{
+    private readonly IUsuarioWriteOnlyRepository _usuarioWriteOnlyRepository;
+    private readonly IUsuarioReadOnlyRepository _usuarioReadOnlyRepository;
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateUsuarioUseCase(
+        IUsuarioWriteOnlyRepository usuarioWriteOnlyRepository,
+        IUsuarioReadOnlyRepository usuarioReadOnlyRepository,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
+    {
+        _usuarioWriteOnlyRepository = usuarioWriteOnlyRepository;
+        _usuarioReadOnlyRepository = usuarioReadOnlyRepository;
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<ResponseUsuariosJson> Execute(RequestCreateUsuariosJson request)
+    {
+        await Validate(request);
+        var usuario = _mapper.Map<Usuario>(request);
+        usuario.Senha = new PasswordEncrypt().HashPassword(request.Senha);
+        usuario.Id = Guid.NewGuid();
+        await _usuarioWriteOnlyRepository.AddAsync(usuario);
+        await _unitOfWork.CommitAsync();
+
+        return new ResponseUsuariosJson
+        {
+            Nome = request.Nome,
+            Email = request.Email
+        };
+    }
+
+    private async Task Validate(RequestCreateUsuariosJson request)
+    {
+        var result = new UsuarioValidator().Validate(request);
+        var emailExist = await _usuarioReadOnlyRepository.ExistUserByEmail(request.Email);
+
+        if (emailExist) 
+        {
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure("email", "Email já cadastrado na base de dados"));
+        }
+
+        if (!result.IsValid) 
+        {
+            var mensagensDeErro = result.Errors.Select(x => x.ErrorMessage).ToList();
+            throw new ValidationErrorException(mensagensDeErro);
+        }
+    }
+}
