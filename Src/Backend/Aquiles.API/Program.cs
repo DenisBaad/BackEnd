@@ -14,6 +14,7 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
+builder.Services.AddHttpContextAccessor();
 
 #if DEBUG
 builder.Services.AddCors(x => x.AddPolicy("aquiles", builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));

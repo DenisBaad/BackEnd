@@ -14,7 +14,7 @@ public class ClienteRepository : IClienteWriteOnlyRepository, IClienteReadOnlyRe
     
     public async Task<bool> ExistClienteWithCode(int code) => await _context.Clientes.AsNoTracking().AnyAsync(x => x.Codigo.Equals(code));
 
-    public async Task<IList<Cliente>> GetAll() => await _context.Clientes.AsNoTracking().ToListAsync();
+    public async Task<IList<Cliente>> GetAll(Guid usuarioId) => await _context.Clientes.AsNoTracking().Where(x =>x.UsuarioId == usuarioId).ToListAsync();
 
     public void Update(Cliente cliente) => _context.Clientes.Update(cliente);
 

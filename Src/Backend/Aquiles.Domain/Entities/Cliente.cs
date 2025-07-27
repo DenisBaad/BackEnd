@@ -3,6 +3,7 @@
 namespace Aquiles.Domain.Entities;
 public class Cliente : BaseEntity
 {
+    public Guid UsuarioId { get; set; }
     public int Codigo { get; set; }
     public EnumTipoCliente Tipo { get; set; }
     public string? CpfCnpj { get; set; }

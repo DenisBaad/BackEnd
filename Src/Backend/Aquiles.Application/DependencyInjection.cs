@@ -7,6 +7,7 @@ using Aquiles.Application.UseCases.Login.DoLogin;
 using Aquiles.Application.UseCases.Usuarios.Create;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Aquiles.Application.Servicos.UsuarioLogado;
 
 namespace Aquiles.Application;
 public static class DependencyInjection
@@ -22,6 +23,7 @@ public static class DependencyInjection
     {
         AddUsuarioUseCase(services);
         AddLoginUseCase(services);
+        AdicionarUsuarioLogadoUseCase(services);
         AddClienteUseCase(services);
     }
 
@@ -33,6 +35,11 @@ public static class DependencyInjection
     private static void AddLoginUseCase(IServiceCollection services)
     {
         services.AddScoped<ILoginUseCase, LoginUseCase>();
+    }
+
+    private static void AdicionarUsuarioLogadoUseCase(IServiceCollection services)
+    {
+        services.AddScoped<IUsuarioLogado, UsuarioLogado>();
     }
 
     private static void AddClienteUseCase(IServiceCollection services) 

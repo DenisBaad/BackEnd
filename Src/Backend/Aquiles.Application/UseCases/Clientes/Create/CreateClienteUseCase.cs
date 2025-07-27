@@ -1,4 +1,5 @@
-﻿using Aquiles.Communication.Requests.Clientes;
+﻿using Aquiles.Application.Servicos.UsuarioLogado;
+using Aquiles.Communication.Requests.Clientes;
 using Aquiles.Communication.Responses.Clientes;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories;
@@ -13,24 +14,30 @@ public class CreateClienteUseCase : ICreateClienteUseCase
     private readonly IClienteReadOnlyRepository _clienteReadOnlyRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUsuarioLogado _usuarioLogado;
 
     public CreateClienteUseCase(
         IClienteWriteOnlyRepository clienteWriteOnlyRepository,
         IClienteReadOnlyRepository clienteReadOnlyRepository,
         IMapper mapper, 
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IUsuarioLogado usuarioLogado)
     {
         _clienteWriteOnlyRepository = clienteWriteOnlyRepository;
         _clienteReadOnlyRepository = clienteReadOnlyRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _usuarioLogado = usuarioLogado;
     }
 
     public async Task<ResponseClientesJson> Execute(RequestCreateClientesJson request)
     {
+        var usuario = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
+
         await Validate(request);
         var cliente = _mapper.Map<Cliente>(request);
         cliente.Id = Guid.NewGuid();
+        cliente.UsuarioId = usuario;
         await _clienteWriteOnlyRepository.AddAsync(cliente);
         await _unitOfWork.CommitAsync();
 

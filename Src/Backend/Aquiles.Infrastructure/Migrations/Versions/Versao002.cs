@@ -15,6 +15,7 @@ public class Versao002 : BaseVersion
             .WithColumn("Identidade").AsString(20).Nullable()
             .WithColumn("OrgaoExpedidor").AsString(10).Nullable()
             .WithColumn("DataNascimento").AsDateTime().Nullable()
-            .WithColumn("NomeFantasia").AsString(45).Nullable();
+            .WithColumn("NomeFantasia").AsString(45).Nullable()
+            .WithColumn("UsuarioId").AsGuid().NotNullable();
     }
 }
