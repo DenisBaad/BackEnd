@@ -47,7 +47,7 @@ public class ClientesController : BaseController
         return NoContent();
     }
 
-    [HttpDelete]
+    [HttpPost]
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete([FromServices] IDeleteClienteUseCase useCase, [FromRoute] Guid id)
