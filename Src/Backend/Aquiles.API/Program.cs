@@ -4,30 +4,24 @@ using Aquiles.Application.Servicos;
 using Aquiles.Infrastructure.Migrations;
 using Aquiles.API.Filters;
 
+var cadastrosDevCors = "myHosts";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("aquiles", builder =>
-    {
-        builder
-            .WithOrigins("https://apolo-gules.vercel.app")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-    });
+    options.AddPolicy(name: cadastrosDevCors,
+                        policy =>
+                        {
+                            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                        });
 });
-builder.Services.AddControllers();
+
 builder.Services.AddRouting(x => x.LowercaseUrls = true);
-builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
-builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
 builder.Services.AddHttpContextAccessor();
-
-
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Aquiles API", Version = "1.0" });
@@ -55,6 +49,13 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddAuthorization();
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
+builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -64,15 +65,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("aquiles");
+app.UseCors(cadastrosDevCors);
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
 MigrateDatabase();
+
+app.UseRouting();
+
+app.UseAuthorization();
 
 app.Run();
 
