@@ -54,9 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-#if DEBUG
 app.UseCors("aquiles");
-#endif
 
 app.UseHttpsRedirection();
 
