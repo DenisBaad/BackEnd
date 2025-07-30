@@ -8,6 +8,7 @@ using Aquiles.Application.UseCases.Usuarios.Create;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Aquiles.Application.Servicos.UsuarioLogado;
+using Aquiles.Application.UseCases.Clientes.Delete;
 
 namespace Aquiles.Application;
 public static class DependencyInjection
@@ -48,6 +49,7 @@ public static class DependencyInjection
             .AddScoped<ICreateClienteUseCase, CreateClienteUseCase>()
             .AddScoped<IGetAllClientesUseCase, GetAllClientesUseCase>()
             .AddScoped<IUpdateClienteUseCase,  UpdateClienteUseCase>()
+            .AddScoped<IDeleteClienteUseCase, DeleteClienteUseCase>()
             .AddScoped<IAtivarOuInativarClienteUseCase, AtivarOuInativarClienteUseCase>();
     }
 
