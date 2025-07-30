@@ -8,6 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("aquiles", builder =>
+    {
+        builder
+            .WithOrigins("https://apolo-gules.vercel.app")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 builder.Services.AddControllers();
 builder.Services.AddRouting(x => x.LowercaseUrls = true);
 builder.Services.AddApplication(builder.Configuration);
@@ -16,7 +27,6 @@ builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddCors(x => x.AddPolicy("aquiles", builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 
 builder.Services.AddSwaggerGen(option =>
 {
