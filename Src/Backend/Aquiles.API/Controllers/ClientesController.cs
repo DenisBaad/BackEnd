@@ -1,7 +1,6 @@
 ﻿using Aquiles.Application.Servicos;
 using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
-using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
 using Aquiles.Application.UseCases.Clientes.Update;
 using Aquiles.Communication.Requests.Clientes;
@@ -42,15 +41,6 @@ public class ClientesController : BaseController
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateStatus([FromServices] IAtivarOuInativarClienteUseCase useCase, [FromRoute] Guid id)
-    {
-        await useCase.Execute(id);
-        return NoContent();
-    }
-
-    [HttpPost]
-    [Route("{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Delete([FromServices] IDeleteClienteUseCase useCase, [FromRoute] Guid id)
     {
         await useCase.Execute(id);
         return NoContent();

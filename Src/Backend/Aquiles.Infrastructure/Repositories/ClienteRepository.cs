@@ -18,9 +18,5 @@ public class ClienteRepository : IClienteWriteOnlyRepository, IClienteReadOnlyRe
 
     public void Update(Cliente cliente) => _context.Clientes.Update(cliente);
 
-    async Task<Cliente> IClienteReadOnlyRepository.GetById(Guid id) => await _context.Clientes.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
-
     async Task<Cliente> IClienteUpdateOnlyRepository.GetById(Guid id) => await _context.Clientes.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-    public void Delete(Cliente cliente) => _context.Clientes.Remove(cliente);
 }
