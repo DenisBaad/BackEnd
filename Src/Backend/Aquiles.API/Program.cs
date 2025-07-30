@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+#if DEBUG
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("aquiles", builder =>
@@ -18,6 +19,8 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+#endif
+
 builder.Services.AddControllers();
 builder.Services.AddRouting(x => x.LowercaseUrls = true);
 builder.Services.AddApplication(builder.Configuration);
@@ -58,11 +61,15 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
- app.UseSwagger();
- app.UseSwaggerUI();
-
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+ 
+#if DEBUG  
 app.UseCors("aquiles");
+#endif
 
 app.UseHttpsRedirection();
 
