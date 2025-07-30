@@ -1,5 +1,6 @@
 ﻿using Aquiles.Application.Helpers;
 using Aquiles.Communication.Requests.Clientes;
+using Aquiles.Exception;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Text.RegularExpressions;
@@ -13,26 +14,26 @@ public class ClienteValidator : AbstractValidator<RequestCreateClientesJson>
         {
             RuleFor(p => p.CpfCnpj)
            .Length(11, 14)
-           .WithMessage("O Campo CPFCNPJ não pode ter menos que 11 e nem mais que 14 números");
+           .WithMessage(ResourceMensagensDeErro.CNPJCPF_TAMANHO_INVALIDO);
 
             RuleFor(p => p.CpfCnpj).Custom((cpfCnpj, context) =>
             {
                 if (cpfCnpj.Length == 11 && !ValidaCPF.IsCpf(cpfCnpj))
-                    context.AddFailure(new ValidationFailure(nameof(cpfCnpj), "O CPF informado é inválido"));
+                    context.AddFailure(new ValidationFailure(nameof(cpfCnpj), ResourceMensagensDeErro.CPF_INVALIDO));
                 else if (cpfCnpj.Length == 14 && !ValidaCNPJ.IsCnpj(cpfCnpj))
-                    context.AddFailure(new ValidationFailure(nameof(cpfCnpj), "O CNPJ informado é inválido"));
+                    context.AddFailure(new ValidationFailure(nameof(cpfCnpj), ResourceMensagensDeErro.CNPJ_INVALIDO));
             });
         });
 
         RuleFor(p => p.Nome)
             .NotEmpty()
-            .WithMessage("O Nome do cliente deve ser informado");
+            .WithMessage(ResourceMensagensDeErro.NOME_CLIENTE_VAZIO);
 
         When(p => !string.IsNullOrEmpty(p.Nome), () =>
         {
             RuleFor(p => p.Nome)
                 .Length(3, 45)
-                .WithMessage("O Nome do cliente deve ter no mínimo 3 e no máximo 45 caracteres");
+                .WithMessage(ResourceMensagensDeErro.NOME_CLIENTE_TAMANHO_INVALIDO);
         });
 
         When(p => !string.IsNullOrEmpty(p.Identidade), () =>
@@ -41,17 +42,17 @@ public class ClienteValidator : AbstractValidator<RequestCreateClientesJson>
             {
                 if (Regex.IsMatch(identidade, @"[^0-9\s]", RegexOptions.None, TimeSpan.FromSeconds(5)))
                 {
-                    context.AddFailure(new ValidationFailure(nameof(identidade), "O campo identidade deverá conter somente números"));
+                    context.AddFailure(new ValidationFailure(nameof(identidade), ResourceMensagensDeErro.IDENTIDADE_CARACTERES_ESPECIAIS));
                 }
             });
 
             RuleFor(p => p.Identidade)
                 .Length(6, 20)
-                .WithMessage("O campo Identidade deverá ter no mínimo 6 e no máximo 20 números");
+                .WithMessage(ResourceMensagensDeErro.IDENTIDADE_TAMANHO_INVALIDO);
 
             RuleFor(p => p.OrgaoExpedidor)
                 .NotEmpty()
-                .WithMessage("Quando informada identidade deverá ser informado o órgão expedidor");
+                .WithMessage(ResourceMensagensDeErro.ORGAO_EXPEDIDOR_VAZIO);
 
             When(p => !string.IsNullOrEmpty(p.OrgaoExpedidor), () =>
             {
@@ -59,19 +60,19 @@ public class ClienteValidator : AbstractValidator<RequestCreateClientesJson>
                 {
                     if (Regex.IsMatch(orgao, @"[^a-zA-Z0-9\s]", RegexOptions.None, TimeSpan.FromSeconds(5)))
                     {
-                        context.AddFailure(new ValidationFailure(nameof(orgao), "O Órgão expedidor não poderá conter caracteres especiais"));
+                        context.AddFailure(new ValidationFailure(nameof(orgao), ResourceMensagensDeErro.ORGAO_EXPEDIDOR_CARACTERES_ESPECIAIS));
                     }
                 });
 
                 RuleFor(p => p.OrgaoExpedidor)
                     .Length(1, 10)
-                    .WithMessage("O Órgao expedidor deverá ter no máximo 10 caracteres");
+                    .WithMessage(ResourceMensagensDeErro.ORGAO_EXPEDIDOR_TAMANHO_INVALIDO);
             });
         });
 
         RuleFor(p => p.Tipo)
             .IsInEnum()
-            .WithMessage("O tipo de cliente deve ser informado corretamente");
+            .WithMessage(ResourceMensagensDeErro.TIPO_DEVE_SER_INFORMADO);
 
         When(p => !string.IsNullOrEmpty(p.NomeFantasia), () =>
         {
@@ -79,13 +80,13 @@ public class ClienteValidator : AbstractValidator<RequestCreateClientesJson>
             {
                 if (Regex.IsMatch(fantasia, @"[^a-zA-Z0-9\s]", RegexOptions.None, TimeSpan.FromSeconds(5)))
                 {
-                    context.AddFailure(new ValidationFailure(nameof(fantasia), "O Nome fantasia não poderá conter caracteres especiais"));
+                    context.AddFailure(new ValidationFailure(nameof(fantasia), ResourceMensagensDeErro.NOME_FANTASIA_CARACTERES_ESPECIAIS));
                 }
             });
 
             RuleFor(p => p.NomeFantasia)
                 .Length(1, 45)
-                .WithMessage("O Nome fantasia deve ter no mínimo 3 e no máximo 45 caracteres");
+                .WithMessage(ResourceMensagensDeErro.NOME_FANTASIA_TAMANHO_INVALIDO);
         });
     }
 }

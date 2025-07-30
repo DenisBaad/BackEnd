@@ -4,6 +4,7 @@ using Aquiles.Communication.Responses.Usuarios;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories;
 using Aquiles.Domain.Repositories.Usuarios;
+using Aquiles.Exception;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
 using FluentValidation;
@@ -55,7 +56,7 @@ public class CreateUsuarioUseCase : ICreateUsuarioUseCase
 
         if (emailExist) 
         {
-            result.Errors.Add(new FluentValidation.Results.ValidationFailure("email", "Email já cadastrado na base de dados"));
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure("email", ResourceMensagensDeErro.EMAIL_USUARIO_JA_CADASTRADO));
         }
 
         if (!result.IsValid) 

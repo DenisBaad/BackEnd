@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Aquiles.Exception;
 
 namespace Aquiles.Application.Servicos;
 public class AquilesAuthorize : AuthorizeAttribute, IAsyncAuthorizationFilter
@@ -42,11 +43,11 @@ public class AquilesAuthorize : AuthorizeAttribute, IAsyncAuthorizationFilter
 
     private void ExpiredToken(AuthorizationFilterContext context)
     {
-        context.Result = new UnauthorizedObjectResult(new ResponseErrorJson("Token expirado"));
+        context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ResourceMensagensDeErro.TOKEN_EXPIRADO));
     }
 
     private void NoPermission(AuthorizationFilterContext context)
     {
-        context.Result = new UnauthorizedObjectResult(new ResponseErrorJson("Usuário sem permissão"));
+        context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ResourceMensagensDeErro.USUARIO_SEM_PERMISSAO));
     }
 }

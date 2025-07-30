@@ -4,7 +4,7 @@ namespace Aquiles.Exception.AquilesException;
 [Serializable]
 public class InvalidLoginException : AquilesException
 {
-    public InvalidLoginException() : base("Login inválido") { }
+    public InvalidLoginException() : base(ResourceMensagensDeErro.LOGIN_INVALIDO) { }
 
     public InvalidLoginException(string message) : base(message) { }
 

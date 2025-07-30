@@ -3,6 +3,7 @@ using Aquiles.Infrastructure;
 using Aquiles.Application.Servicos;
 using Aquiles.Infrastructure.Migrations;
 using Aquiles.API.Filters;
+using Aquiles.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 MigrateDatabase();
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.Run();
 
