@@ -2,6 +2,7 @@
 using Aquiles.Application.Servicos.UsuarioLogado;
 using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
+using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
 using Aquiles.Application.UseCases.Clientes.Update;
 using Aquiles.Application.UseCases.Login.DoLogin;
@@ -48,6 +49,7 @@ public static class DependencyInjection
             .AddScoped<ICreateClienteUseCase, CreateClienteUseCase>()
             .AddScoped<IGetAllClientesUseCase, GetAllClientesUseCase>()
             .AddScoped<IUpdateClienteUseCase,  UpdateClienteUseCase>()
+            .AddScoped<IDeleteClienteUseCase, DeleteClienteUseCase>()
             .AddScoped<IAtivarOuInativarClienteUseCase, AtivarOuInativarClienteUseCase>();
     }
 
