@@ -4,6 +4,8 @@ using Aquiles.Application.Servicos;
 using Aquiles.Infrastructure.Migrations;
 using Aquiles.API.Filters;
 using Aquiles.API.Middleware;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Aquiles.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +60,19 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddHealthChecks().AddDbContextCheck<AquilesContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 // Configure the HTTP request pipeline.
 
