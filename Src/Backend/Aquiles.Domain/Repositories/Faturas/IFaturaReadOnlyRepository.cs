@@ -4,5 +4,7 @@ namespace Aquiles.Domain.Repositories.Faturas;
 public interface IFaturaReadOnlyRepository
 {
     public Task<Fatura> GetById(Guid id);
-    Task<IList<Fatura>> GetAll(Guid usuarioId, Guid? idPlano, Guid? clienteId);
+    public Task<IList<Fatura>> GetAll(Guid usuarioId, Guid? idPlano, Guid? clienteId);
+    public Task<List<Fatura>> GetRelatorioFaturaPorCliente(Guid usuarioId, DateTime? dataAbertura, DateTime? dataFechamento, int? status, List<string> clientesIds);
+
 }

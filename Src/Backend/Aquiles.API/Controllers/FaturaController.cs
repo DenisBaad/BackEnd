@@ -2,6 +2,8 @@
 using Aquiles.Application.UseCases.Faturas.Create;
 using Aquiles.Application.UseCases.Faturas.GetAll;
 using Aquiles.Application.UseCases.Faturas.Update;
+using Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
+using Aquiles.Communication.Enums;
 using Aquiles.Communication.Requests.Faturas;
 using Aquiles.Communication.Responses.Faturas;
 using Microsoft.AspNetCore.Mvc;
@@ -33,5 +35,19 @@ public class FaturaController : BaseController
     {
         await useCase.Execute(fatura, id);
         return NoContent();
+    }
+
+    [HttpGet("gerar-relatorio-faturas-clientes")]
+    [ProducesResponseType(typeof(ResponseFaturaJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GerarRelatorioFaturasPorCliente(
+        [FromQuery] string usuarioNome,
+        [FromQuery] DateTime? dataAbertura,
+        [FromQuery] DateTime? dataFechamento,
+        [FromQuery] EnumStatusFatura? status,
+        [FromQuery] List<string> clienteId,
+        [FromServices] IRelatorioFaturas useCase)
+    {
+        var pdfBytes = await useCase.Executar(usuarioNome, dataAbertura, dataFechamento, status, clienteId);
+        return File(pdfBytes, "application/pdf", "relatorio_faturas.pdf");
     }
 }

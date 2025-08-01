@@ -14,6 +14,7 @@ using Aquiles.Application.UseCases.Planos.Create;
 using Aquiles.Application.UseCases.Planos.GetAll;
 using Aquiles.Application.UseCases.Planos.GetById;
 using Aquiles.Application.UseCases.Planos.Update;
+using Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
 using Aquiles.Application.UseCases.Usuarios.Create;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,7 +79,8 @@ public static class DependencyInjection
         services
             .AddScoped<ICreateFaturaUseCase, CreateFaturaUseCase>()
             .AddScoped<IGetAllFaturaUseCase, GetAllFaturaUseCase>()
-            .AddScoped<IUpdateFaturaUseCase, UpdateFaturaUseCase>();
+            .AddScoped<IUpdateFaturaUseCase, UpdateFaturaUseCase>()
+            .AddScoped<IRelatorioFaturas, RelatorioFaturas>();
     }
     private static void AdicionarChaveAdicionalToken(IServiceCollection services, IConfiguration configurationManager)
     {
