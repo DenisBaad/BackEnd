@@ -15,6 +15,7 @@ public class Fatura : BaseEntity
     public string? IdTransacao { get; set; }
     public Guid ClienteId { get; set; }
     public Guid PlanoId { get; set; }
+    public Guid UsuarioId { get; set; }
     public virtual Plano Plano { get; set; }
     public virtual Cliente Cliente { get; set; }
 }

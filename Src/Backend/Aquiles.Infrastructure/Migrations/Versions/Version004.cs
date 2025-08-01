@@ -20,6 +20,7 @@ public class Version004 : BaseVersion
             .WithColumn("CodBoleto").AsString(45).Nullable()
             .WithColumn("IdTransacao").AsString(45).Nullable()
             .WithColumn("ClienteId").AsGuid().NotNullable()
+            .WithColumn("UsuarioId").AsGuid().NotNullable()
             .WithColumn("PlanoId").AsGuid().NotNullable().ForeignKey("Planos", "Id").OnDelete(Rule.None);
     }
 }
