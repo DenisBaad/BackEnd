@@ -4,8 +4,16 @@ using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
 using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
+using Aquiles.Application.UseCases.Clientes.GetById;
 using Aquiles.Application.UseCases.Clientes.Update;
+using Aquiles.Application.UseCases.Faturas.Create;
+using Aquiles.Application.UseCases.Faturas.GetAll;
+using Aquiles.Application.UseCases.Faturas.Update;
 using Aquiles.Application.UseCases.Login.DoLogin;
+using Aquiles.Application.UseCases.Planos.Create;
+using Aquiles.Application.UseCases.Planos.GetAll;
+using Aquiles.Application.UseCases.Planos.GetById;
+using Aquiles.Application.UseCases.Planos.Update;
 using Aquiles.Application.UseCases.Usuarios.Create;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +34,8 @@ public static class DependencyInjection
         AddLoginUseCase(services);
         AdicionarUsuarioLogadoUseCase(services);
         AddClienteUseCase(services);
+        AddPlanoUseCase(services);
+        AddFaturaUseCase(services);
     }
 
     private static void AddUsuarioUseCase(IServiceCollection services)
@@ -48,11 +58,28 @@ public static class DependencyInjection
         services
             .AddScoped<ICreateClienteUseCase, CreateClienteUseCase>()
             .AddScoped<IGetAllClientesUseCase, GetAllClientesUseCase>()
+            .AddScoped<IGetIdClientesUseCase,  GetIdClientesUseCase>()
             .AddScoped<IUpdateClienteUseCase,  UpdateClienteUseCase>()
             .AddScoped<IDeleteClienteUseCase, DeleteClienteUseCase>()
             .AddScoped<IAtivarOuInativarClienteUseCase, AtivarOuInativarClienteUseCase>();
     }
 
+    private static void AddPlanoUseCase(IServiceCollection services)
+    {
+        services
+            .AddScoped<ICreatePlanoUseCase, CreatePlanoUseCase>()
+            .AddScoped<IGetAllPlanoUseCase, GetAllPlanoUseCase>()
+            .AddScoped<IGetIdPlanoUseCase, GetIdPlanoUseCase>()
+            .AddScoped<IUpdatePlanoUseCase, UpdatePlanoUseCase>();
+    }
+
+    private static void AddFaturaUseCase(IServiceCollection services)
+    {
+        services
+            .AddScoped<ICreateFaturaUseCase, CreateFaturaUseCase>()
+            .AddScoped<IGetAllFaturaUseCase, GetAllFaturaUseCase>()
+            .AddScoped<IUpdateFaturaUseCase, UpdateFaturaUseCase>();
+    }
     private static void AdicionarChaveAdicionalToken(IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddScoped(option => new PasswordEncrypt(configurationManager.GetSection("Configuracoes:Senha:ChaveAdicionalSenha").Value));

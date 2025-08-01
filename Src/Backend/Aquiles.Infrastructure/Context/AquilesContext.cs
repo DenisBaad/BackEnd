@@ -8,6 +8,8 @@ public class AquilesContext : DbContext
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Plano> Planos { get; set; }
+    public DbSet<Fatura> Faturas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

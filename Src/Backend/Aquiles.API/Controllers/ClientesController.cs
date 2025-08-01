@@ -3,9 +3,12 @@ using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
 using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
+using Aquiles.Application.UseCases.Clientes.GetById;
 using Aquiles.Application.UseCases.Clientes.Update;
+using Aquiles.Application.UseCases.Planos.GetById;
 using Aquiles.Communication.Requests.Clientes;
 using Aquiles.Communication.Responses.Clientes;
+using Aquiles.Communication.Responses.Planos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;
@@ -26,6 +29,15 @@ public class ClientesController : BaseController
     public async Task<IActionResult> GetAll([FromServices] IGetAllClientesUseCase useCase)
     {
         var result = await useCase.Execute();
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseClientesJson), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetId([FromServices] IGetIdClientesUseCase useCase, [FromRoute] Guid id)
+    {
+        var result = await useCase.Execute(id);
         return Ok(result);
     }
 

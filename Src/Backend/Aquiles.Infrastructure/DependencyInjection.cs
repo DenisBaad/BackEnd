@@ -1,5 +1,7 @@
 ﻿using Aquiles.Domain.Repositories;
 using Aquiles.Domain.Repositories.Clientes;
+using Aquiles.Domain.Repositories.Faturas;
+using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Infrastructure.Context;
 using Aquiles.Infrastructure.Repositories;
@@ -24,6 +26,8 @@ public static class DependencyInjection
         AddUnitOfWorkRepository(services);
         AddUsuariosRepository(services);
         AddClientesRepository(services);
+        AddPlanoRepository(services);
+        AddFaturaRepository(services);
     }
 
     private static void AddUnitOfWorkRepository(IServiceCollection services)
@@ -44,6 +48,22 @@ public static class DependencyInjection
             .AddScoped<IClienteWriteOnlyRepository, ClienteRepository>()
             .AddScoped<IClienteReadOnlyRepository, ClienteRepository>()
             .AddScoped<IClienteUpdateOnlyRepository, ClienteRepository>();
+    }
+
+    private static void AddPlanoRepository(IServiceCollection services)
+    {
+        services
+            .AddScoped<IPlanoWriteOnlyRepository, PlanoRepository>()
+            .AddScoped<IPlanoReadOnlyRepository, PlanoRepository>()
+            .AddScoped<IPlanoUpdateOnlyRepository, PlanoRepository>();
+    }
+
+    private static void AddFaturaRepository(IServiceCollection services)
+    {
+        services
+            .AddScoped<IFaturaWriteOnlyRepository, FaturaRepository>()
+            .AddScoped<IFaturaReadOnlyRepository, FaturaRepository>()
+            .AddScoped<IFaturaUpdateOnlyRepository, FaturaRepository>();
     }
 
     public static void AddMySqlContext(IServiceCollection services, IConfiguration configuration)
