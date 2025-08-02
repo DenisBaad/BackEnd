@@ -82,6 +82,7 @@ public static class DependencyInjection
             .AddScoped<IUpdateFaturaUseCase, UpdateFaturaUseCase>()
             .AddScoped<IRelatorioFaturas, RelatorioFaturas>();
     }
+    
     private static void AdicionarChaveAdicionalToken(IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddScoped(option => new PasswordEncrypt(configurationManager.GetSection("Configuracoes:Senha:ChaveAdicionalSenha").Value));

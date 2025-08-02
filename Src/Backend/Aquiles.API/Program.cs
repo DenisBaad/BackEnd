@@ -6,6 +6,7 @@ using Aquiles.API.Filters;
 using Aquiles.API.Middleware;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Aquiles.Infrastructure.Context;
+using Aquiles.Application.UseCases.Faturas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
+builder.Services.AddHostedService<FaturaBackgroundService>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen(option =>

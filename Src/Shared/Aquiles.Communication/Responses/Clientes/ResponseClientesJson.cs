@@ -13,4 +13,5 @@ public class ResponseClientesJson
     public string? OrgaoExpedidor { get; set; }
     public DateTime? DataNascimento { get; set; }
     public string? NomeFantasia { get; set; }
+    public string Contato { get; set; }
 }

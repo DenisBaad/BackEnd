@@ -2,7 +2,7 @@
 
 namespace Aquiles.Infrastructure.Migrations.Versions;
 [Migration(2, "Create table Clientes")]
-public class Versao002 : BaseVersion
+public class Version002 : BaseVersion
 {
     public override void Up()
     {
@@ -16,6 +16,7 @@ public class Versao002 : BaseVersion
             .WithColumn("OrgaoExpedidor").AsString(10).Nullable()
             .WithColumn("DataNascimento").AsDateTime().Nullable()
             .WithColumn("NomeFantasia").AsString(45).Nullable()
+            .WithColumn("Contato").AsString(40).NotNullable()
             .WithColumn("UsuarioId").AsGuid().NotNullable().ForeignKey("FK_Clientes_Usuario_Id", "Usuarios", "id").OnDelete(System.Data.Rule.Cascade);
     }
 }

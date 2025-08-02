@@ -99,7 +99,7 @@ public class RelatorioFaturas : IRelatorioFaturas
 
             foreach (var cliente in clientes)
             {
-                document.Add(new Paragraph($"Cliente: {cliente.Nome} - CPF/CNPJ: {cliente.CpfCnpj}", fontCliente));
+                document.Add(new Paragraph($"Cliente: {cliente.Nome} - CPF/CNPJ: {cliente.CpfCnpj} - Contato: {cliente.Contato}", fontCliente));
                 document.Add(new Paragraph("\n"));
 
                 var faturasCliente = faturas.Where(f => f.ClienteId == cliente.Id).ToList();
