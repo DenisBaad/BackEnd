@@ -7,7 +7,6 @@ using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Exception;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
-using FluentValidation;
 
 namespace Aquiles.Application.UseCases.Usuarios.Create;
 public class CreateUsuarioUseCase : ICreateUsuarioUseCase

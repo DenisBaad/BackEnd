@@ -16,6 +16,6 @@ public class Versao002 : BaseVersion
             .WithColumn("OrgaoExpedidor").AsString(10).Nullable()
             .WithColumn("DataNascimento").AsDateTime().Nullable()
             .WithColumn("NomeFantasia").AsString(45).Nullable()
-            .WithColumn("UsuarioId").AsGuid().NotNullable();
+            .WithColumn("UsuarioId").AsGuid().NotNullable().ForeignKey("FK_Clientes_Usuario_Id", "Usuarios", "id").OnDelete(System.Data.Rule.Cascade);
     }
 }

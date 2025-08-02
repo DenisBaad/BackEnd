@@ -1,4 +1,6 @@
 ﻿using Aquiles.Communication.Enums;
+using Aquiles.Communication.Responses.Clientes;
+using Aquiles.Communication.Responses.Planos;
 
 namespace Aquiles.Communication.Responses.Faturas;
 public class ResponseFaturaJson
@@ -16,4 +18,6 @@ public class ResponseFaturaJson
     public string? IdTransacao { get; set; }
     public Guid ClienteId { get; set; }
     public Guid PlanoId { get; set; }
+    public ResponseClientesJson Cliente { get; set; }
+    public ResponsePlanoJson Plano { get; set; }
 }

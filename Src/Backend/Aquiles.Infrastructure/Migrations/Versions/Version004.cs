@@ -1,5 +1,4 @@
 ﻿using FluentMigrator;
-using System.Data;
 
 namespace Aquiles.Infrastructure.Migrations.Versions;
 [Migration(4, "Create table faturas")]
@@ -19,8 +18,8 @@ public class Version004 : BaseVersion
             .WithColumn("ValorPagamento").AsDecimal(10, 2).Nullable()
             .WithColumn("CodBoleto").AsString(45).Nullable()
             .WithColumn("IdTransacao").AsString(45).Nullable()
-            .WithColumn("ClienteId").AsGuid().NotNullable()
-            .WithColumn("UsuarioId").AsGuid().NotNullable()
-            .WithColumn("PlanoId").AsGuid().NotNullable();
+            .WithColumn("ClienteId").AsGuid().NotNullable().ForeignKey("FK_Faturas_Cliente_Id", "Clientes", "id").OnDelete(System.Data.Rule.Cascade)
+            .WithColumn("UsuarioId").AsGuid().NotNullable().ForeignKey("FK_Faturas_Usuario_Id", "Usuarios", "id").OnDelete(System.Data.Rule.Cascade)
+            .WithColumn("PlanoId").AsGuid().NotNullable().ForeignKey("FK_Faturas_Plano_Id", "Planos", "id").OnDelete(System.Data.Rule.Cascade);
     }
 }

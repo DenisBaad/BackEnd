@@ -16,6 +16,8 @@ public class Fatura : BaseEntity
     public Guid ClienteId { get; set; }
     public Guid PlanoId { get; set; }
     public Guid UsuarioId { get; set; }
+    public Cliente Cliente { get; set; }
+    public Plano Plano { get; set; }
 }
 
 

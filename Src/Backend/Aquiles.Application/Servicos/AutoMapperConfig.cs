@@ -37,6 +37,7 @@ public class AutoMapperConfig : Profile
         CreateMap<RequestCreatePlanoJson, Plano>().ReverseMap();
         CreateMap<Plano, ResponsePlanoJson>().ReverseMap();
     }
+    
     private void CreateFaturaMap()
     {
         CreateMap<RequestCreateFaturaJson, Fatura>().ReverseMap();
