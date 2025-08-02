@@ -25,11 +25,11 @@ public class GetAllFaturaUseCase : IGetAllFaturaUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<IList<ResponseFaturaJson>> Execute(Guid? idPlano, Guid? clienteId)
+    public async Task<IList<ResponseFaturaJson>> Execute()
     {
         var usuarioId = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
 
-        var faturas = await _readOnlyRepository.GetAll(usuarioId, idPlano, clienteId);
+        var faturas = await _readOnlyRepository.GetAll(usuarioId);
         return _mapper.Map<IList<ResponseFaturaJson>>(faturas);
     }
 }

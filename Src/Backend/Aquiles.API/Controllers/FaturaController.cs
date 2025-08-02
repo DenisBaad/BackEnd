@@ -22,9 +22,9 @@ public class FaturaController : BaseController
     
     [HttpGet]
     [ProducesResponseType(typeof(IList<ResponseFaturaJson>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromServices] IGetAllFaturaUseCase useCase, Guid? idPlano, Guid? clienteId)
+    public async Task<IActionResult> Get([FromServices] IGetAllFaturaUseCase useCase)
     {
-        var result = await useCase.Execute(idPlano, clienteId);
+        var result = await useCase.Execute();
         return Ok(result);
     }
     

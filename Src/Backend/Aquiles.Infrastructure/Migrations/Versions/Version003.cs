@@ -8,7 +8,7 @@ public class Version003 : BaseVersion
     public override void Up()
     {
         CreateTable("Planos")
-            .WithColumn("Descricao").AsString(14).NotNullable()
+            .WithColumn("Descricao").AsString().NotNullable()
             .WithColumn("ValorPlano").AsDecimal(10, 2).NotNullable()
             .WithColumn("QuantidadeUsuarios").AsInt16().NotNullable().WithDefaultValue(1)
             .WithColumn("VigenciaMeses").AsInt16().NotNullable()

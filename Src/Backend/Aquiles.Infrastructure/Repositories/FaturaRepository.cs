@@ -14,19 +14,8 @@ public class FaturaRepository : IFaturaWriteOnlyRepository, IFaturaReadOnlyRepos
 
     public async Task<Fatura> GetById(Guid id) => await _context.Faturas.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
 
-    public async Task<IList<Fatura>> GetAll(Guid usuarioId, Guid? idPlano, Guid? clienteId)
-    {
-        var query = _context.Faturas.AsNoTracking().Where(x => x.UsuarioId == usuarioId).AsQueryable();
+    public async Task<IList<Fatura>> GetAll(Guid usuarioId) => await _context.Faturas.AsNoTracking().Where(x => x.UsuarioId == usuarioId).ToListAsync();
 
-        if (idPlano.HasValue)
-            query = query.Where(f => f.PlanoId == idPlano.Value);
-
-        if (clienteId.HasValue)
-            query = query.Where(f => f.ClienteId == clienteId.Value);
-
-        return await query.ToListAsync();
-    }
-    
     async Task<Fatura> IFaturaUpdateOnlyRepository.GetById(Guid id) => await _context.Faturas.FirstOrDefaultAsync(x => x.Id == id);
 
     public void Update(Fatura fatura) => _context.Faturas.Update(fatura);

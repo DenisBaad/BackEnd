@@ -3,5 +3,5 @@
 namespace Aquiles.Application.UseCases.Faturas.GetAll;
 public interface IGetAllFaturaUseCase
 {
-    public Task<IList<ResponseFaturaJson>> Execute(Guid? idPlano, Guid? clienteId);
+    public Task<IList<ResponseFaturaJson>> Execute();
 }
