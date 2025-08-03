@@ -11,10 +11,11 @@ public class UsuarioValidator : AbstractValidator<RequestCreateUsuariosJson>
             .NotEmpty().WithMessage(ResourceMensagensDeErro.NOME_USUARIO_EMBRANCO);
 
         RuleFor(x => x.Email)
-            .EmailAddress().WithMessage(ResourceMensagensDeErro.EMAIL_USUARIO_INVALIDO);
-
-        RuleFor(x => x.Email)
             .NotEmpty().WithMessage(ResourceMensagensDeErro.EMAIL_USUARIO_EMBRANCO);
+        When(x => !string.IsNullOrEmpty(x.Email), () =>
+        {
+            RuleFor(x => x.Email).EmailAddress().WithMessage(ResourceMensagensDeErro.EMAIL_USUARIO_INVALIDO);
+        });
 
         RuleFor(x => x.Senha.Length)
             .GreaterThanOrEqualTo(6).WithMessage(ResourceMensagensDeErro.SENHA_USUARIO_TAMANHO_INVALIDO);

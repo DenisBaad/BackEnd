@@ -43,8 +43,8 @@ public class CreateUsuarioUseCase : ICreateUsuarioUseCase
         return new ResponseUsuariosJson
         {
             Id = usuario.Id,
-            Nome = request.Nome,
-            Email = request.Email
+            Nome = usuario.Nome,
+            Email = usuario.Email
         };
     }
 

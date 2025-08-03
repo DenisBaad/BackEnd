@@ -17,6 +17,10 @@ public static class DependencyInjection
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
+
+        if (configuration.IsUnitTestEnvironment())
+            return;
+        
         AddMySqlContext(services, configuration);
         AddFluentMigrator_MySql(services, configuration);
     }
@@ -73,6 +77,11 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("Connection");
 
         services.AddDbContext<AquilesContext>(context => context.UseMySql(connectionString, versaoServidor));
+    }
+
+    public static bool IsUnitTestEnvironment(this IConfiguration configuration)
+    {
+        return configuration.GetValue<bool>("InMemoryTest");
     }
 
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
