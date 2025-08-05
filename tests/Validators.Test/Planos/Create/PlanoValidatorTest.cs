@@ -10,6 +10,7 @@ public class PlanoValidatorTest
     public void Sucesso()
     {
         var request = RequestCreatePlanoJsonBuilder.Build();
+        
         var validator = new PlanoValidator().Validate(request);
 
         validator.IsValid.Should().BeTrue();

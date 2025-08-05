@@ -10,6 +10,7 @@ public class UsuarioValidatorTest
     public void Sucesso()
     {
         var request = RequestCreateUsuariosJsonBuilder.Build();
+        
         var validator = new UsuarioValidator().Validate(request);
 
         validator.IsValid.Should().BeTrue();
@@ -61,6 +62,7 @@ public class UsuarioValidatorTest
     public void Erro_Senha_Invalida(int senha)
     {
         var request = RequestCreateUsuariosJsonBuilder.Build(senha);
+        
         var validator = new UsuarioValidator().Validate(request);
 
         validator.IsValid.Should().BeFalse();

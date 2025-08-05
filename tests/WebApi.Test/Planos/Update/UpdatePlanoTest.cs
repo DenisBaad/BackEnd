@@ -5,17 +5,19 @@ using FluentAssertions;
 using System.Net;
 using System.Text.Json;
 
-namespace WebApi.Test.Planos.Create;
-public class CreatePlanoUseCaseTest : ControllerBase
+namespace WebApi.Test.Planos.Update;
+public class UpdatePlanoTest : ControllerBase
 {
     private const string METHOD = "Plano";
     private Usuario _usuario;
     private string _senha;
+    private Plano _plano;
 
-    public CreatePlanoUseCaseTest(CustomWebApplicationFactory<Program> factory) : base(factory)
+    public UpdatePlanoTest(CustomWebApplicationFactory<Program> factory) : base(factory)
     {
         _usuario = factory.GetUsuario();
         _senha = factory.GetSenha();
+        _plano = factory.GetPlano();
     }
 
     [Fact]
@@ -24,22 +26,19 @@ public class CreatePlanoUseCaseTest : ControllerBase
         var token = await Login(_usuario.Email, _senha);
         var request = RequestCreatePlanoJsonBuilder.Build();
 
-        var response = await PostRequest(METHOD, request, token);
+        var response = await PutRequest(METHOD, request, token, _plano.Id);
 
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-        await using var responseBody = await response.Content.ReadAsStreamAsync();
-        var responseData = await JsonDocument.ParseAsync(responseBody);
-        responseData.RootElement.GetProperty("descricao").GetString().Should().NotBeNullOrWhiteSpace().And.Be(request.Descricao);
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
-    public async Task Erro_Descricao_Vazia()
+    public async Task Erroo_Descricao_Vazia()
     {
         var token = await Login(_usuario.Email, _senha);
         var request = RequestCreatePlanoJsonBuilder.Build();
         request.Descricao = string.Empty;
 
-        var response = await PostRequest(METHOD, request, token);
+        var response = await PutRequest(METHOD, request, token, _plano.Id);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         await using var responseBody = await response.Content.ReadAsStreamAsync();

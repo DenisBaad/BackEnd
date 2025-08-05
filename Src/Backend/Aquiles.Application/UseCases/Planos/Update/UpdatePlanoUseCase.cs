@@ -10,6 +10,7 @@ public class UpdatePlanoUseCase : IUpdatePlanoUseCase
     private readonly IPlanoUpdateOnlyRepository _planoUpdateOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    
     public UpdatePlanoUseCase(
         IPlanoUpdateOnlyRepository planoUpdateOnlyRepository, 
         IUnitOfWork unitOfWork, 
@@ -19,6 +20,7 @@ public class UpdatePlanoUseCase : IUpdatePlanoUseCase
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
+    
     public async Task Execute(RequestCreatePlanoJson request, Guid id)
     {
         Validate(request);
@@ -28,6 +30,7 @@ public class UpdatePlanoUseCase : IUpdatePlanoUseCase
         _planoUpdateOnlyRepository.Update(plano);
         await _unitOfWork.CommitAsync();
     }
+    
     private void Validate(RequestCreatePlanoJson request)
     {
         var validator = new PlanoValidator();

@@ -9,9 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 namespace WebApi.Test;
 public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
-    private Usuario _usuario;
-    private string _senha;
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -38,16 +35,22 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
 
                 database.Database.EnsureDeleted();
 
-                (_usuario, _senha) = Seed(database);
+                (_usuario, _senha, _plano) = Seed(database);
             });
     }
 
-    private static (Usuario usuario, string senha) Seed(AquilesContext context)
+    private Usuario _usuario;
+    private string _senha;
+    private Plano _plano;
+
+    private static (Usuario usuario, string senha, Plano plano) Seed(AquilesContext context)
     {
         (var usuario, string senha) = UsuarioBuilder.Build();
+        var plano = PlanoBuilder.Build(usuario.Id);
         context.Usuarios.Add(usuario);
+        context.Planos.Add(plano);
         context.SaveChanges();
-        return (usuario, senha);
+        return (usuario, senha, plano);
     }
 
     public Usuario GetUsuario()
@@ -58,5 +61,10 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     public string GetSenha()
     {
         return _senha;
+    }
+
+    public Plano GetPlano()
+    {
+        return _plano;
     }
 }

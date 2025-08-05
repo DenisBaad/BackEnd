@@ -57,7 +57,6 @@ public class CreateUsuarioUseCaseTest
     {
         var request = RequestCreateUsuariosJsonBuilder.Build();
         request.Nome = string.Empty;
-
         var useCase = CreateUseCase();
 
         Func<Task> act = async () => await useCase.Execute(request);

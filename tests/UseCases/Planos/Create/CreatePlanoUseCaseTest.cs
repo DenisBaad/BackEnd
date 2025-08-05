@@ -17,6 +17,7 @@ public class CreatePlanoUseCaseTest
         var useCase = CreateUseCase();
 
         var result = await useCase.Execute(request);
+        
         useCase.Should().NotBeNull();
         result.Descricao.Should().Be(request.Descricao);
     }
@@ -36,7 +37,6 @@ public class CreatePlanoUseCaseTest
     {
         var request = RequestCreatePlanoJsonBuilder.Build();
         request.Descricao = string.Empty;
-
         var useCase = CreateUseCase();
 
         Func<Task> act = async () => await useCase.Execute(request);

@@ -28,10 +28,10 @@ public class LoginTest : ControllerBase
         };
 
         var response = await PostRequest(METHOD, request);
+        
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
-
         responseData.RootElement.GetProperty("nome").GetString().Should().NotBeNullOrWhiteSpace().And.Be(_usuario.Nome);
         responseData.RootElement.GetProperty("token").GetString().Should().NotBeNullOrWhiteSpace();
     }
@@ -46,6 +46,7 @@ public class LoginTest : ControllerBase
         };
 
         var response = await PostRequest(METHOD, request);
+        
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
@@ -64,6 +65,7 @@ public class LoginTest : ControllerBase
         };
 
         var response = await PostRequest(METHOD, request);
+        
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);
@@ -82,6 +84,7 @@ public class LoginTest : ControllerBase
         };
 
         var response = await PostRequest(METHOD, request);
+        
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
         var responseData = await JsonDocument.ParseAsync(responseBody);

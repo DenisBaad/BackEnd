@@ -24,11 +24,12 @@ public class ControllerBase : IClassFixture<CustomWebApplicationFactory<Program>
         return await _httpClient.PostAsync(metodo, new StringContent(jsonString, Encoding.UTF8, "application/json"));
     }
 
-    protected async Task<HttpResponseMessage> PutRequest(string metodo, object body, string token = "")
+    protected async Task<HttpResponseMessage> PutRequest(string metodo, object body, string token = "", Guid? id = null)
     {
         AuthorizeRequest(token);
+        var url = id.HasValue ? $"{metodo}/{id}" : metodo;
         var jsonString = JsonConvert.SerializeObject(body);
-        return await _httpClient.PutAsync(metodo, new StringContent(jsonString, Encoding.UTF8, "application/json"));
+        return await _httpClient.PutAsync(url, new StringContent(jsonString, Encoding.UTF8, "application/json"));
     }
 
     protected async Task<string> Login(string email, string senha)
