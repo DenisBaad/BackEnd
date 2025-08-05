@@ -51,4 +51,18 @@ public class CreateUsuarioUseCaseTest
         (await act.Should().ThrowAsync<ValidationErrorException>())
         .Where(e => e.Errors.Count == 1 && e.Errors.Contains(ResourceMensagensDeErro.EMAIL_USUARIO_JA_CADASTRADO));
     }
+
+    [Fact]
+    public async Task Erro_Nome_Vazia()
+    {
+        var request = RequestCreateUsuariosJsonBuilder.Build();
+        request.Nome = string.Empty;
+
+        var useCase = CreateUseCase();
+
+        Func<Task> act = async () => await useCase.Execute(request);
+
+        (await act.Should().ThrowAsync<ValidationErrorException>())
+        .Where(e => e.Errors.Count == 1 && e.Errors.Contains(ResourceMensagensDeErro.NOME_USUARIO_EMBRANCO));
+    }
 }

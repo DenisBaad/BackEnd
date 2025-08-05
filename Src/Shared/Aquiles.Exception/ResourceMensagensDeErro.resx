@@ -126,6 +126,9 @@
   <data name="CPF_INVALIDO" xml:space="preserve">
     <value>O CPF informado é inválido</value>
   </data>
+  <data name="DESCRICAO_OBRIGATORIA" xml:space="preserve">
+    <value>A descrição deve ser informada</value>
+  </data>
   <data name="EMAIL_USUARIO_EMBRANCO" xml:space="preserve">
     <value>O Email do usuário deve ser informado.</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="ORGAO_EXPEDIDOR_VAZIO" xml:space="preserve">
     <value>Quando informada identidade deverá ser informado o órgão expedidor</value>
   </data>
+  <data name="QUANTIDADE_USUARIO_NEGATIVO" xml:space="preserve">
+    <value>Quantidade de usuários não pode ser zero</value>
+  </data>
   <data name="SENHA_USUARIO_TAMANHO_INVALIDO" xml:space="preserve">
     <value>A senha deve conter no mínimo seis caracteres</value>
   </data>
@@ -179,5 +185,11 @@
   </data>
   <data name="USUARIO_SEM_PERMISSAO" xml:space="preserve">
     <value>Você não tem permissão para acessar esse recurso</value>
+  </data>
+  <data name="VALOR_PLANO_NEGATIVO" xml:space="preserve">
+    <value>Valor do plano não pode ser negativo</value>
+  </data>
+  <data name="VIGENCIA_MES_NEGATIVA" xml:space="preserve">
+    <value>Vigencia do mês deve ser maior que zero</value>
   </data>
 </root>

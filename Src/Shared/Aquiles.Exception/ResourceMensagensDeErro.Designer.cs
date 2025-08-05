@@ -88,6 +88,15 @@ namespace Aquiles.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A descrição deve ser informada.
+        /// </summary>
+        public static string DESCRICAO_OBRIGATORIA {
+            get {
+                return ResourceManager.GetString("DESCRICAO_OBRIGATORIA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O Email do usuário deve ser informado..
         /// </summary>
         public static string EMAIL_USUARIO_EMBRANCO {
@@ -214,6 +223,15 @@ namespace Aquiles.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade de usuários não pode ser zero.
+        /// </summary>
+        public static string QUANTIDADE_USUARIO_NEGATIVO {
+            get {
+                return ResourceManager.GetString("QUANTIDADE_USUARIO_NEGATIVO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter no mínimo seis caracteres.
         /// </summary>
         public static string SENHA_USUARIO_TAMANHO_INVALIDO {
@@ -246,6 +264,24 @@ namespace Aquiles.Exception {
         public static string USUARIO_SEM_PERMISSAO {
             get {
                 return ResourceManager.GetString("USUARIO_SEM_PERMISSAO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor do plano não pode ser negativo.
+        /// </summary>
+        public static string VALOR_PLANO_NEGATIVO {
+            get {
+                return ResourceManager.GetString("VALOR_PLANO_NEGATIVO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Vigencia do mês deve ser maior que zero.
+        /// </summary>
+        public static string VIGENCIA_MES_NEGATIVA {
+            get {
+                return ResourceManager.GetString("VIGENCIA_MES_NEGATIVA", resourceCulture);
             }
         }
     }

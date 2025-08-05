@@ -6,11 +6,12 @@ using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace WebApi.Test.Usuarios.Create;
-public class CreateUsuarioTest : IClassFixture<CustomWebApplicationFactory>
+public class CreateUsuarioTest : ControllerBase
 {
+    private const string METHOD = "Usuarios";
     private readonly HttpClient _httpClient;
 
-    public CreateUsuarioTest(CustomWebApplicationFactory factory) 
+    public CreateUsuarioTest(CustomWebApplicationFactory<Program> factory) : base(factory)
     {
         _httpClient = factory.CreateClient();
     }
@@ -20,7 +21,7 @@ public class CreateUsuarioTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestCreateUsuariosJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync("Usuarios", request);
+        var response = await _httpClient.PostAsJsonAsync(METHOD, request);
         
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         await using var responseBody = await response.Content.ReadAsStreamAsync();

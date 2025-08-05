@@ -30,7 +30,7 @@ public class LoginUseCase : ILoginUseCase
 
             if (usuario is null)
             {
-                throw new System.Exception("Login inválido.");
+                throw new InvalidLoginException();
             }
 
             return new ResponseLoginJson()

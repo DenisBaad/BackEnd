@@ -6,8 +6,6 @@ public class UsuarioWriteOnlyRepositoryBuilder
 {
     public static IUsuarioWriteOnlyRepository Build()
     {
-        var mock = new Mock<IUsuarioWriteOnlyRepository>();
-
-        return mock.Object;
+        return new Mock<IUsuarioWriteOnlyRepository>().Object;
     }
 }

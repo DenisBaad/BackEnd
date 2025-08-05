@@ -12,11 +12,11 @@ namespace Aquiles.API.Controllers;
 public class PlanoController : BaseController
 {
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponsePlanoJson), StatusCodes.Status201Created)]
     public async Task<IActionResult> Post([FromServices] ICreatePlanoUseCase useCase, [FromBody] RequestCreatePlanoJson request)
     {
-        await useCase.Execute(request);
-        return Created(string.Empty, null);
+        var result = await useCase.Execute(request);
+        return Created(string.Empty, result);
     }
     
     [HttpGet]

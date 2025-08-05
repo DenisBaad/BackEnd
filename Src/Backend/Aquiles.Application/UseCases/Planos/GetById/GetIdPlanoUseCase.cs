@@ -7,6 +7,7 @@ public class GetIdPlanoUseCase : IGetIdPlanoUseCase
 {
     private readonly IPlanoReadOnlyRepository _planoReadOnlyRepository;
     private readonly IMapper _mapper;
+    
     public GetIdPlanoUseCase(
         IPlanoReadOnlyRepository planoReadOnlyRepository,
         IMapper mapper)
@@ -14,6 +15,7 @@ public class GetIdPlanoUseCase : IGetIdPlanoUseCase
         _planoReadOnlyRepository = planoReadOnlyRepository;
         _mapper = mapper;
     }
+    
     public async Task<ResponsePlanoJson> Execute(Guid id)
     {
         var plano = await _planoReadOnlyRepository.GetById(id);
