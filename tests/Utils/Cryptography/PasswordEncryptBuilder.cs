@@ -3,5 +3,8 @@
 namespace CommonTestUtilities.Cryptography;
 public class PasswordEncryptBuilder
 {
-    public static PasswordEncrypt Build() => new PasswordEncrypt("abc1234");
+    public static PasswordEncrypt Build()
+    {
+        return new PasswordEncrypt("abc1234");
+    }
 }

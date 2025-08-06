@@ -2,7 +2,7 @@
 using Moq;
 
 namespace CommonTestUtilities.Repositories.Planos;
-public class IPlanoWriteOnlyRepositoryBuilder
+public class PlanoWriteOnlyRepositoryBuilder
 {
     public static IPlanoWriteOnlyRepository Build()
     {

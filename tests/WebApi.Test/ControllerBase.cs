@@ -2,8 +2,8 @@
 using Aquiles.Exception;
 using Newtonsoft.Json;
 using System.Globalization;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace WebApi.Test;
 
@@ -32,25 +32,21 @@ public class ControllerBase : IClassFixture<CustomWebApplicationFactory<Program>
         return await _httpClient.PutAsync(url, new StringContent(jsonString, Encoding.UTF8, "application/json"));
     }
 
-    protected async Task<string> Login(string email, string senha)
-    {
-        var request = new RequestLoginJson
-        {
-            Email = email,
-            Senha = senha
-        };
-
-        var response = await PostRequest("Login", request);
-        await using var responseBody = await response.Content.ReadAsStreamAsync();
-        var responseData = await JsonDocument.ParseAsync(responseBody);
-
-        return responseData.RootElement.GetProperty("token").GetString() ?? "";
-    }
-
     private void AuthorizeRequest(string token)
     {
         if (!string.IsNullOrWhiteSpace(token))
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+    }
+
+    protected async Task<string> Login(string email, string senha)
+    {
+        var request = new RequestLoginJson { Email = email, Senha = senha };
+
+        var response = await PostRequest("Login", request);
+        
+        await using var responseBody = await response.Content.ReadAsStreamAsync();
+        var responseData = await JsonDocument.ParseAsync(responseBody);
+        return responseData.RootElement.GetProperty("token").GetString() ?? "";
     }
 }
 

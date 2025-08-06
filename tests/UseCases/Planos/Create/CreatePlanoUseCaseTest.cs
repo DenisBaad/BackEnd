@@ -25,7 +25,7 @@ public class CreatePlanoUseCaseTest
     private CreatePlanoUseCase CreateUseCase()
     {
         var autoMapper = MapperBuilder.Build();
-        var writeOnlyRepository = IPlanoWriteOnlyRepositoryBuilder.Build();
+        var writeOnlyRepository = PlanoWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var usuarioLogado = UsuarioLogadoBuilder.Build();
 

@@ -21,11 +21,7 @@ public class LoginTest : ControllerBase
     [Fact]
     public async Task Sucesso()
     {
-        var request = new RequestLoginJson
-        {
-            Email = _usuario.Email,
-            Senha = _senha
-        };
+        var request = new RequestLoginJson { Email = _usuario.Email, Senha = _senha };
 
         var response = await PostRequest(METHOD, request);
         
@@ -39,11 +35,7 @@ public class LoginTest : ControllerBase
     [Fact]
     public async Task Erro_Validar_Email_Invalido()
     {
-        var request = new RequestLoginJson
-        {
-            Email = "email@invalido.com",
-            Senha = _senha
-        };
+        var request = new RequestLoginJson { Email = "email@invalido.com", Senha = _senha };
 
         var response = await PostRequest(METHOD, request);
         
@@ -58,11 +50,7 @@ public class LoginTest : ControllerBase
     [Fact]
     public async Task Erro_Validar_Senha_Invalida()
     {
-        var request = new RequestLoginJson
-        {
-            Email = _usuario.Email,
-            Senha = "senhaInvalida"
-        };
+        var request = new RequestLoginJson { Email = _usuario.Email, Senha = "senhaInvalida" };
 
         var response = await PostRequest(METHOD, request);
         
@@ -77,11 +65,7 @@ public class LoginTest : ControllerBase
     [Fact]
     public async Task Erro_Validar_Email_E_Senha_Invalidos()
     {
-        var request = new RequestLoginJson
-        {
-            Email = "email@invalido.com",
-            Senha = "senhaInvalida"
-        };
+        var request = new RequestLoginJson { Email = "email@invalido.com", Senha = "senhaInvalida" };
 
         var response = await PostRequest(METHOD, request);
         
