@@ -138,6 +138,18 @@
   <data name="EMAIL_USUARIO_JA_CADASTRADO" xml:space="preserve">
     <value>El usuario informado ya está registrado en la base de datos.</value>
   </data>
+  <data name="FATURA_FIM_VIGENCIA_OBRIGATORIA" xml:space="preserve">
+    <value>La fecha de finalización de la vigencia de la factura es obligatoria.</value>
+  </data>
+  <data name="FATURA_INICIO_VIGENCIA_OBRIGATORIA" xml:space="preserve">
+    <value>La fecha de inicio de la vigencia de la factura es obligatoria.</value>
+  </data>
+  <data name="FATURA_NEGATIVA" xml:space="preserve">
+    <value>La factura no puede ser negativa.</value>
+  </data>
+  <data name="FATURA_VENCIMENTO" xml:space="preserve">
+    <value>La fecha de vencimiento de la factura no puede ser anterior a la fecha actual.</value>
+  </data>
   <data name="IDENTIDADE_CARACTERES_ESPECIAIS" xml:space="preserve">
     <value>El campo identidad deberá contener solo números.</value>
   </data>
@@ -186,6 +198,9 @@ Perguntar ao ChatGPT</value>
   </data>
   <data name="SENHA_USUARIO_TAMANHO_INVALIDO" xml:space="preserve">
     <value>La contraseña debe contener al menos seis caracteres.</value>
+  </data>
+  <data name="STATUS_OBRIGATORIO" xml:space="preserve">
+    <value>El estado debe ser informado.</value>
   </data>
   <data name="TIPO_DEVE_SER_INFORMADO" xml:space="preserve">
     <value>El tipo de cliente debe ser informado correctamente.</value>

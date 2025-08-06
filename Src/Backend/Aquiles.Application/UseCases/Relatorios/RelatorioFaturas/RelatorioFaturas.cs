@@ -8,6 +8,7 @@ using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories.Planos;
 
 namespace Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
+
 public class RelatorioFaturas : IRelatorioFaturas
 {
     private readonly IFaturaReadOnlyRepository _faturaRepository;
@@ -59,6 +60,7 @@ public class RelatorioFaturas : IRelatorioFaturas
         }
 
         var clientes = new List<Cliente>();
+        
         foreach (var id in clienteIdsFiltrados)
         {
             var cliente = await _clienteReadOnlyRepository.GetById(id);
@@ -67,12 +69,9 @@ public class RelatorioFaturas : IRelatorioFaturas
         }
 
         // Buscar planos usados nas faturas
-        var planoIds = faturas
-        .Select(f => f.PlanoId)
-        .Distinct()
-        .ToList();
-
+        var planoIds = faturas.Select(f => f.PlanoId).Distinct().ToList();
         var planos = new List<Plano>();
+        
         foreach (var id in planoIds)
         {
             var plano = await _planoReadOnlyRepository.GetById(id);

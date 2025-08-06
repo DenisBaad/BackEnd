@@ -1,11 +1,10 @@
-﻿using Aquiles.Communication.Requests.Faturas;
+﻿using Aquiles.Application.Servicos.UsuarioLogado;
+using Aquiles.Communication.Requests.Faturas;
 using Aquiles.Domain.Entities;
-using Aquiles.Domain.Repositories.Faturas;
 using Aquiles.Domain.Repositories;
+using Aquiles.Domain.Repositories.Faturas;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
-using Aquiles.Application.Servicos.UsuarioLogado;
-using System.Numerics;
 
 namespace Aquiles.Application.UseCases.Faturas.Create;
 public class CreateFaturaUseCase : ICreateFaturaUseCase
@@ -26,6 +25,7 @@ public class CreateFaturaUseCase : ICreateFaturaUseCase
         _unitOfWork = unitOfWork;
         _usuarioLogado = usuarioLogado;
     }
+    
     public async Task Execute(RequestCreateFaturaJson request)
     {
         var usuario = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
@@ -37,6 +37,7 @@ public class CreateFaturaUseCase : ICreateFaturaUseCase
         await _faturaWriteRepository.Create(fatura);
         await _unitOfWork.CommitAsync();
     }
+    
     private void Validate(RequestCreateFaturaJson request)
     {
         var validator = new FaturaValidator();

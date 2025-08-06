@@ -10,6 +10,7 @@ public class UpdateFaturaUseCase : IUpdateFaturaUseCase
     private readonly IFaturaUpdateOnlyRepository _faturaUpdateOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    
     public UpdateFaturaUseCase(
         IFaturaUpdateOnlyRepository faturaUpdateOnlyRepository,
         IUnitOfWork unitOfWork,
@@ -19,6 +20,7 @@ public class UpdateFaturaUseCase : IUpdateFaturaUseCase
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
+    
     public async Task Execute(RequestCreateFaturaJson request, Guid id)
     {
         Validate(request);
@@ -28,6 +30,7 @@ public class UpdateFaturaUseCase : IUpdateFaturaUseCase
         _faturaUpdateOnlyRepository.Update(fatura);
         await _unitOfWork.CommitAsync();
     }
+    
     private void Validate(RequestCreateFaturaJson request)
     {
         var validator = new FaturaValidator();

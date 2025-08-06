@@ -124,6 +124,42 @@ namespace Aquiles.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A data de fim da vigência da fatura é obrigatória..
+        /// </summary>
+        public static string FATURA_FIM_VIGENCIA_OBRIGATORIA {
+            get {
+                return ResourceManager.GetString("FATURA_FIM_VIGENCIA_OBRIGATORIA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A data de início da vigência da fatura é obrigatória..
+        /// </summary>
+        public static string FATURA_INICIO_VIGENCIA_OBRIGATORIA {
+            get {
+                return ResourceManager.GetString("FATURA_INICIO_VIGENCIA_OBRIGATORIA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fatura não pode ser negativa.
+        /// </summary>
+        public static string FATURA_NEGATIVA {
+            get {
+                return ResourceManager.GetString("FATURA_NEGATIVA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A data de vencimento da fatura não pode ser anterior à data atual..
+        /// </summary>
+        public static string FATURA_VENCIMENTO {
+            get {
+                return ResourceManager.GetString("FATURA_VENCIMENTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O campo identidade deverá conter somente números.
         /// </summary>
         public static string IDENTIDADE_CARACTERES_ESPECIAIS {
@@ -237,6 +273,15 @@ namespace Aquiles.Exception {
         public static string SENHA_USUARIO_TAMANHO_INVALIDO {
             get {
                 return ResourceManager.GetString("SENHA_USUARIO_TAMANHO_INVALIDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O status deve ser informado.
+        /// </summary>
+        public static string STATUS_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("STATUS_OBRIGATORIO", resourceCulture);
             }
         }
         

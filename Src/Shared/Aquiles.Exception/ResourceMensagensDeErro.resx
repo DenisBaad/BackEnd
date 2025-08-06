@@ -138,6 +138,18 @@
   <data name="EMAIL_USUARIO_JA_CADASTRADO" xml:space="preserve">
     <value>O Usuário informado já esta cadastrado no banco de dados.</value>
   </data>
+  <data name="FATURA_FIM_VIGENCIA_OBRIGATORIA" xml:space="preserve">
+    <value>A data de fim da vigência da fatura é obrigatória.</value>
+  </data>
+  <data name="FATURA_INICIO_VIGENCIA_OBRIGATORIA" xml:space="preserve">
+    <value>A data de início da vigência da fatura é obrigatória.</value>
+  </data>
+  <data name="FATURA_NEGATIVA" xml:space="preserve">
+    <value>Fatura não pode ser negativa</value>
+  </data>
+  <data name="FATURA_VENCIMENTO" xml:space="preserve">
+    <value>A data de vencimento da fatura não pode ser anterior à data atual.</value>
+  </data>
   <data name="IDENTIDADE_CARACTERES_ESPECIAIS" xml:space="preserve">
     <value>O campo identidade deverá conter somente números</value>
   </data>
@@ -176,6 +188,9 @@
   </data>
   <data name="SENHA_USUARIO_TAMANHO_INVALIDO" xml:space="preserve">
     <value>A senha deve conter no mínimo seis caracteres</value>
+  </data>
+  <data name="STATUS_OBRIGATORIO" xml:space="preserve">
+    <value>O status deve ser informado</value>
   </data>
   <data name="TIPO_DEVE_SER_INFORMADO" xml:space="preserve">
     <value>O tipo de cliente deve ser informado corretamente</value>

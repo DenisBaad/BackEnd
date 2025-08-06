@@ -9,6 +9,7 @@ using Aquiles.Communication.Responses.Faturas;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;
+
 [ServiceFilter(typeof(AquilesAuthorize))]
 public class FaturaController : BaseController
 {

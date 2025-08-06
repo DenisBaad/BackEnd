@@ -8,7 +8,7 @@ public class PlanoValidator : AbstractValidator<RequestCreatePlanoJson>
     public PlanoValidator()
     {
         RuleFor(plano => plano.Descricao)
-        .NotEmpty().WithMessage(ResourceMensagensDeErro.DESCRICAO_OBRIGATORIA);
+            .NotEmpty().WithMessage(ResourceMensagensDeErro.DESCRICAO_OBRIGATORIA);
         
         RuleFor(plano => plano.ValorPlano)
             .GreaterThan(0).WithMessage(ResourceMensagensDeErro.VALOR_PLANO_NEGATIVO);

@@ -1,9 +1,7 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Communication.Enums;
+﻿using Aquiles.Communication.Enums;
 using Aquiles.Domain.Repositories;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Domain.Repositories.Faturas;
-using Aquiles.Exception.AquilesException;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

@@ -1,7 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
 namespace Aquiles.Exception.AquilesException;
+
 [Serializable]
+
 public class ValidationErrorException : AquilesException
 {
     public IList<string> Errors { get; set; }

@@ -8,7 +8,9 @@ using Aquiles.Communication.Responses.Planos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;
+
 [ServiceFilter(typeof(AquilesAuthorize))]
+
 public class PlanoController : BaseController
 {
     [HttpPost]
